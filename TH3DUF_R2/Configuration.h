@@ -278,7 +278,7 @@
 //===========================================================================
 // Creality Ender 3 Options - Select 'Sanguino 1284p' from Tools > Board
 //===========================================================================
-//#define ENDER3
+#define ENDER3
 
 // If you are using our EZOut V1/V2 (connected to LCD header) filament sensor kit please follow the install guide
 // and then uncomment the #define EZOUT_ENABLE line below.
@@ -292,7 +292,7 @@
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
 //#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
-//#define CUSTOM_PROBE
+#define CUSTOM_PROBE
 
 //=================================================================================================
 // README - THE BELOW SETTINGS ARE ONLY FOR USING THE CR-10S DUAL BOARD WITH THE ENDER 3
@@ -609,14 +609,14 @@
 #define EZABL_FASTPROBE
 
 // This will disable the XYE motors during probing. Can be useful if you have stepper motors causing interference issues with the EZABL sensor.
-//#define PROBING_MOTORS_OFF
+#define PROBING_MOTORS_OFF
 
 // Heaters will stay on during probing - only use if directed to by support. Do not use on AC beds.
-//#define HEATERS_ON_DURING_PROBING
+#define HEATERS_ON_DURING_PROBING
 
 // If you want a more granular control over the babystepping uncomment the below line.
 // This will make the adjustment finer than the standard setting.
-//#define FINE_BABYSTEPPING
+#define FINE_BABYSTEPPING
 
 // This will extrapolate the implied tilt of the bed outside of the probe area. Do not comment out unless directed by support.
 #define EZABL_OUTSIDE_GRID_COMPENSATION
@@ -645,8 +645,8 @@
   *      O-- FRONT --+
   *    (0,0)
   */
-  #define X_PROBE_OFFSET_FROM_EXTRUDER 10  // X offset: -left  +right  [of the nozzle]
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -50  // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -12  // Y offset: -front +behind [the nozzle]
 #endif
 
 //===========================================================================
@@ -657,7 +657,7 @@
 // If you are using the TH3D RGB strip connect to the Z+ endstop connection, power supply connection, and uncomment the below line
 //#define TH3D_RGB_STRIP
 // If you cut the strip shorter please count the LEDs that are left, uncomment the line below, and change the number below to how many LEDs you have.
-#define TH3D_RGB_STRIP_LED_COUNT 20
+//#define TH3D_RGB_STRIP_LED_COUNT 20
 
 // EXTRUDER SETTINGS -------------------------------
 
@@ -713,13 +713,13 @@
 // MISC --------------------------------------------
 
 // If you have a 5015 fan that whines when under 100% speed uncomment the below line.
-//#define FAN_FIX
+#define FAN_FIX
 
 // Use your own printer name
-//#define USER_PRINTER_NAME "CHANGE ME" 
+#define USER_PRINTER_NAME "extropy-ender3"
 
 // If your printer is homing to the endstops hard uncomment this to change the homing speed/divisor to make it less aggressive.
-//#define SLOWER_HOMING
+#define SLOWER_HOMING
 
 // BOOT SCREEN OPTIONS -----------------------------
 
@@ -730,7 +730,7 @@
 //#define ENDER_BOOT
 
 // Disable Bootscreen completely
-//#define DISABLE_BOOT
+#define DISABLE_BOOT
 
 //===========================================================================
 //****************** COMMUNITY REQUESTED FEATURES ***************************
@@ -760,9 +760,9 @@
 // support the people that originally came up with the board you can get our EZOut breakout board here: http://EZOut.TH3DStudio.com
 // Sales from our shop allow us to allocate time for community firmware development at no charge to you. <3
 //
-//#define BLTOUCH
+#define BLTOUCH
 // Here is where you set your servo pin. EZOut Servo Pin Numbers: Others - 27, Ender 2 - 29. For 2560 boards look for the pin you connected the servo wire to and enter below.
-//#define SERVO0_PIN 27
+#define SERVO0_PIN 27
 //
 // NOTE: On 1284p boards due to space limitations and the large amount of code the BLTouch requires for the LCD Menus
 // the Bootscreen and some Control > Motion menus will not be displayed due to space restrictions

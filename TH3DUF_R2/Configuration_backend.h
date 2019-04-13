@@ -1228,7 +1228,7 @@
   #define DEFAULT_ZJERK                  0.3
   #define DEFAULT_EJERK                  5.0
   
-  #define INVERT_X_DIR true
+  #define INVERT_X_DIR false
   #define INVERT_Y_DIR true
   
   #if ENABLED(ENDER5)
@@ -2176,7 +2176,7 @@
   #endif
   #define Z_PROBE_OFFSET_FROM_EXTRUDER 0
   #if ENABLED(PROBING_MOTORS_OFF)
-    #define XY_PROBE_SPEED 8000
+    #define XY_PROBE_SPEED 10000
   #else
     #define XY_PROBE_SPEED 12000
   #endif
