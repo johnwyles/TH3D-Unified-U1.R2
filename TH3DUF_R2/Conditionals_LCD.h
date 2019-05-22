@@ -490,12 +490,13 @@
     #define SERVO_DELAY { 50 }
   #endif
   #ifndef BLTOUCH_DELAY
-    #define BLTOUCH_DELAY 375
+    #define BLTOUCH_DELAY 500
   #endif
   #undef Z_SERVO_ANGLES
   #define Z_SERVO_ANGLES { BLTOUCH_DEPLOY, BLTOUCH_STOW }
 
   #define BLTOUCH_DEPLOY    10
+  #define BLTOUCH_ALARM     60
   #define BLTOUCH_STOW      90
   #define BLTOUCH_SELFTEST 120
   #define BLTOUCH_RESET    160

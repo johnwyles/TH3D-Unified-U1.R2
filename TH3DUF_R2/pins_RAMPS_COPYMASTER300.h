@@ -49,20 +49,18 @@
 #endif
 
 #ifndef BOARD_NAME
-  #define BOARD_NAME "RAMPS 1.4"
+  #define BOARD_NAME "Copymaster 3D 300"
 #endif
+
+#define LARGE_FLASH true
 
 //
 // Servos
 //
 #ifdef IS_RAMPS_13
-  #define SERVO0_PIN        7   // RAMPS_13 // Will conflict with BTN_EN2 on LCD_I2C_VIKI
+  #define SERVO0_PIN        7 // RAMPS_13 // Will conflict with BTN_EN2 on LCD_I2C_VIKI// 7 20180115
 #else
-   #if ENABLED(IS_MKS_BOARD_ATX)
-    #define SERVO0_PIN       12
-  #else
-    #define SERVO0_PIN       11
-  #endif
+  #define SERVO0_PIN       11 //11  20180115
 #endif
 #define SERVO1_PIN          6
 #define SERVO2_PIN          5
@@ -75,20 +73,10 @@
 //
 #define X_MIN_PIN           3
 #ifndef X_MAX_PIN
-  #if ENABLED(EZOUTV2_ENABLE)
-    #define X_MAX_PIN         -1
-  #elif ENABLED(ENDER4_FIL)
-    #define X_MAX_PIN         -1
-  #else
-    #define X_MAX_PIN         2
-  #endif
+  #define X_MAX_PIN         2
 #endif
-#define Y_MIN_PIN          14
-#if ENABLED(EZOUTV2_DUAL_ENABLE)
-  #define Y_MAX_PIN          -1 //15
-#else
-  #define Y_MAX_PIN        15
-#endif
+//#define Y_MIN_PIN          15
+#define Y_MAX_PIN          14
 #define Z_MIN_PIN          18
 #define Z_MAX_PIN          19
 
@@ -105,115 +93,40 @@
 #define X_STEP_PIN         54
 #define X_DIR_PIN          55
 #define X_ENABLE_PIN       38
-#ifndef X_CS_PIN
-  #define X_CS_PIN         53
-#endif
+#define X_CS_PIN           53
 
 #define Y_STEP_PIN         60
 #define Y_DIR_PIN          61
 #define Y_ENABLE_PIN       56
-#ifndef Y_CS_PIN
-  #define Y_CS_PIN         49
-#endif
+#define Y_CS_PIN           49
 
-#define Z_STEP_PIN         46
+#define Z_STEP_PIN         47 //20180309
 #define Z_DIR_PIN          48
 #define Z_ENABLE_PIN       62
-#ifndef Z_CS_PIN
-  #define Z_CS_PIN         40
-#endif
+#define Z_CS_PIN           40
 
 #define E0_STEP_PIN        26
 #define E0_DIR_PIN         28
 #define E0_ENABLE_PIN      24
-#ifndef E0_CS_PIN
-  #define E0_CS_PIN        42
-#endif
+#define E0_CS_PIN          42
 
 #define E1_STEP_PIN        36
 #define E1_DIR_PIN         34
 #define E1_ENABLE_PIN      30
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN        44
-#endif
-
-/**
- * Default pins for TMC software SPI
- */
-#if ENABLED(TMC_USE_SW_SPI)
-  #ifndef TMC_SW_MOSI
-    #define TMC_SW_MOSI    66
-  #endif
-  #ifndef TMC_SW_MISO
-    #define TMC_SW_MISO    44
-  #endif
-  #ifndef TMC_SW_SCK
-    #define TMC_SW_SCK     64
-  #endif
-#endif
-
-#if HAS_DRIVER(TMC2208)
-  /**
-   * TMC2208 stepper drivers
-   *
-   * Hardware serial communication ports.
-   * If undefined software serial is used according to the pins below
-   */
-  //#define X_HARDWARE_SERIAL  Serial1
-  //#define X2_HARDWARE_SERIAL Serial1
-  //#define Y_HARDWARE_SERIAL  Serial1
-  //#define Y2_HARDWARE_SERIAL Serial1
-  //#define Z_HARDWARE_SERIAL  Serial1
-  //#define Z2_HARDWARE_SERIAL Serial1
-  //#define E0_HARDWARE_SERIAL Serial1
-  //#define E1_HARDWARE_SERIAL Serial1
-  //#define E2_HARDWARE_SERIAL Serial1
-  //#define E3_HARDWARE_SERIAL Serial1
-  //#define E4_HARDWARE_SERIAL Serial1
-
-  /**
-   * Software serial
-   */
-
-  #define X_SERIAL_TX_PIN    40
-  #define X_SERIAL_RX_PIN    63
-  #define X2_SERIAL_TX_PIN   -1
-  #define X2_SERIAL_RX_PIN   -1
-
-  #define Y_SERIAL_TX_PIN    59
-  #define Y_SERIAL_RX_PIN    64
-  #define Y2_SERIAL_TX_PIN   -1
-  #define Y2_SERIAL_RX_PIN   -1
-
-  #define Z_SERIAL_TX_PIN    42
-  #define Z_SERIAL_RX_PIN    65
-  #define Z2_SERIAL_TX_PIN   -1
-  #define Z2_SERIAL_RX_PIN   -1
-
-  #define E0_SERIAL_TX_PIN   44
-  #define E0_SERIAL_RX_PIN   66
-  #define E1_SERIAL_TX_PIN   -1
-  #define E1_SERIAL_RX_PIN   -1
-  #define E2_SERIAL_TX_PIN   -1
-  #define E2_SERIAL_RX_PIN   -1
-  #define E3_SERIAL_TX_PIN   -1
-  #define E3_SERIAL_RX_PIN   -1
-  #define E4_SERIAL_TX_PIN   -1
-  #define E4_SERIAL_RX_PIN   -1
-#endif
+#define E1_CS_PIN          44
 
 //
 // Temperature Sensors
 //
 #define TEMP_0_PIN         13   // Analog Input
-#define TEMP_1_PIN         15   // Analog Input
+//#define TEMP_1_PIN         15   // Analog Input
 #define TEMP_BED_PIN       14   // Analog Input
 
 // SPI for Max6675 or Max31855 Thermocouple
 #if DISABLED(SDSUPPORT)
-  #define MAX6675_SS       66   // Do not use pin 53 if there is even the remote possibility of using Display/SD card
+  #define MAX6675_SS       66 // Do not use pin 53 if there is even the remote possibility of using Display/SD card
 #else
-  #define MAX6675_SS       66   // Do not use pin 49 as this is tied to the switch inside the SD card socket to detect if there is an SD card present
+  #define MAX6675_SS       66 // Do not use pin 49 as this is tied to the switch inside the SD card socket to detect if there is an SD card present
 #endif
 
 //
@@ -237,50 +150,46 @@
 // Heaters / Fans
 //
 #ifndef MOSFET_D_PIN
-  #define MOSFET_D_PIN     -1
+  #define MOSFET_D_PIN  -1
 #endif
 #ifndef RAMPS_D8_PIN
-  #define RAMPS_D8_PIN      8
+  #define RAMPS_D8_PIN   8
 #endif
 #ifndef RAMPS_D9_PIN
-  #define RAMPS_D9_PIN      9
+  #define RAMPS_D9_PIN   9
 #endif
 #ifndef RAMPS_D10_PIN
-  #define RAMPS_D10_PIN    10
+  #define RAMPS_D10_PIN 10
 #endif
 
-#define HEATER_0_PIN       RAMPS_D10_PIN
+#define HEATER_0_PIN     RAMPS_D10_PIN
 
 #if ENABLED(IS_RAMPS_EFB)                      // Hotend, Fan, Bed
-  #define HEATER_BED_PIN   RAMPS_D8_PIN
+  #define FAN_PIN        RAMPS_D9_PIN
+  #define HEATER_BED_PIN RAMPS_D8_PIN
 #elif ENABLED(IS_RAMPS_EEF)                    // Hotend, Hotend, Fan
-  #define HEATER_1_PIN     RAMPS_D9_PIN
+  #define HEATER_1_PIN   RAMPS_D9_PIN
+  #define FAN_PIN        RAMPS_D8_PIN
 #elif ENABLED(IS_RAMPS_EEB)                    // Hotend, Hotend, Bed
-  #define HEATER_1_PIN     RAMPS_D9_PIN
-  #define HEATER_BED_PIN   RAMPS_D8_PIN
+  #define HEATER_1_PIN   RAMPS_D9_PIN
+  #define HEATER_BED_PIN RAMPS_D8_PIN
 #elif ENABLED(IS_RAMPS_EFF)                    // Hotend, Fan, Fan
-  #define FAN1_PIN         RAMPS_D8_PIN
-#elif DISABLED(IS_RAMPS_SF)                    // Not Spindle, Fan (i.e., "EFBF" or "EFBE")
-  #define HEATER_BED_PIN   RAMPS_D8_PIN
+  #define FAN_PIN        RAMPS_D9_PIN
+  #define FAN1_PIN       RAMPS_D8_PIN
+#elif ENABLED(IS_RAMPS_SF)                     // Spindle, Fan
+  #define FAN_PIN        RAMPS_D8_PIN
+#else                                          // Non-specific are "EFB" (i.e., "EFBF" or "EFBE")
+  #define FAN_PIN        RAMPS_D9_PIN
+  #define HEATER_BED_PIN RAMPS_D8_PIN
   #if HOTENDS == 1
-    #if DISABLED(MKS_PRINTER)
-      #define FAN1_PIN       MOSFET_D_PIN
-    #endif
+    #define FAN1_PIN     MOSFET_D_PIN
   #else
-    #define HEATER_1_PIN   MOSFET_D_PIN
+    #define HEATER_1_PIN MOSFET_D_PIN
   #endif
 #endif
 
 #ifndef FAN_PIN
-  #if ENABLED(IS_RAMPS_EFB) || ENABLED(IS_RAMPS_EFF)  // Hotend, Fan, Bed or Hotend, Fan, Fan
-    #define FAN_PIN        RAMPS_D9_PIN
-  #elif ENABLED(IS_RAMPS_EEF) || ENABLED(IS_RAMPS_SF) // Hotend, Hotend, Fan or Spindle, Fan
-    #define FAN_PIN        RAMPS_D8_PIN
-  #elif ENABLED(IS_RAMPS_EEB)                         // Hotend, Hotend, Bed
-    #define FAN_PIN         4   // IO pin. Buffer needed
-  #else                                               // Non-specific are "EFB" (i.e., "EFBF" or "EFBE")
-    #define FAN_PIN        RAMPS_D9_PIN
-  #endif
+  #define FAN_PIN 4      // IO pin. Buffer needed
 #endif
 
 //
@@ -294,35 +203,18 @@
 #endif
 
 // define digital pin 4 for the filament runout sensor. Use the RAMPS 1.4 digital input 4 on the servos connector
-#if ENABLED(EZOUTV2_ENABLE) || ENABLED(ENDER4_FIL)
-  #if ENABLED(TIM_SMARTT)
-    #define FIL_RUNOUT_PIN      57
-  #else
-    #define FIL_RUNOUT_PIN      2
-  #endif
-#else
-  #define FIL_RUNOUT_PIN      4
-#endif
-
-#if ENABLED(TIM_AM8) || ENABLED(EZOUTV2_DUAL_ENABLE)
-  #define Y_MAX_PIN -1
-  #define FIL_RUNOUT2_PIN 15
-#endif
+#define FIL_RUNOUT_PIN      15  ///4   20180418
 
 #ifndef PS_ON_PIN
-  #if ENABLED(IS_MKS_BOARD_ATX)
-    #define PS_ON_PIN        11
-  #else
-    #define PS_ON_PIN        12
-  #endif
+  #define PS_ON_PIN        12
 #endif
 
-#if ENABLED(CASE_LIGHT_ENABLE) && !defined(CASE_LIGHT_PIN) && !defined(SPINDLE_LASER_ENABLE_PIN)
-  #if NUM_SERVOS <= 1 // try to use servo connector first
-    #define CASE_LIGHT_PIN    6   // MUST BE HARDWARE PWM
+#if ENABLED(CASE_LIGHT_ENABLE) && !PIN_EXISTS(CASE_LIGHT) && !defined(SPINDLE_LASER_ENABLE_PIN)
+  #if !defined(NUM_SERVOS) || NUM_SERVOS == 0 // try to use servo connector first
+    #define CASE_LIGHT_PIN   6      // MUST BE HARDWARE PWM
   #elif !(ENABLED(ULTRA_LCD) && ENABLED(NEWPANEL) \
       && (ENABLED(PANEL_ONE) || ENABLED(VIKI2) || ENABLED(miniVIKI) || ENABLED(MINIPANEL) || ENABLED(REPRAPWORLD_KEYPAD)))  // try to use AUX 2
-    #define CASE_LIGHT_PIN   44   // MUST BE HARDWARE PWM
+    #define CASE_LIGHT_PIN   44     // MUST BE HARDWARE PWM
   #endif
 #endif
 
@@ -331,13 +223,13 @@
 //
 #if ENABLED(SPINDLE_LASER_ENABLE) && !PIN_EXISTS(SPINDLE_LASER_ENABLE)
   #if !defined(NUM_SERVOS) || NUM_SERVOS == 0 // try to use servo connector first
-    #define SPINDLE_LASER_ENABLE_PIN  4   // Pin should have a pullup/pulldown!
-    #define SPINDLE_LASER_PWM_PIN     6   // MUST BE HARDWARE PWM
+    #define SPINDLE_LASER_ENABLE_PIN  4  // Pin should have a pullup/pulldown!
+    #define SPINDLE_LASER_PWM_PIN     6  // MUST BE HARDWARE PWM
     #define SPINDLE_DIR_PIN           5
   #elif !(ENABLED(ULTRA_LCD) && ENABLED(NEWPANEL) \
       && (ENABLED(PANEL_ONE) || ENABLED(VIKI2) || ENABLED(miniVIKI) || ENABLED(MINIPANEL) || ENABLED(REPRAPWORLD_KEYPAD)))  // try to use AUX 2
-    #define SPINDLE_LASER_ENABLE_PIN 40   // Pin should have a pullup/pulldown!
-    #define SPINDLE_LASER_PWM_PIN    44   // MUST BE HARDWARE PWM
+    #define SPINDLE_LASER_ENABLE_PIN 40  // Pin should have a pullup/pulldown!
+    #define SPINDLE_LASER_PWM_PIN    44  // MUST BE HARDWARE PWM
     #define SPINDLE_DIR_PIN          65
   #endif
 #endif
@@ -366,9 +258,9 @@
   //
   #if ENABLED(REPRAPWORLD_GRAPHICAL_LCD)
 
-    #define LCD_PINS_RS         49   // CS chip select /SS chip slave select
-    #define LCD_PINS_ENABLE     51   // SID (MOSI)
-    #define LCD_PINS_D4         52   // SCK (CLK) clock
+    #define LCD_PINS_RS         49 // CS chip select /SS chip slave select
+    #define LCD_PINS_ENABLE     51 // SID (MOSI)
+    #define LCD_PINS_D4         52 // SCK (CLK) clock
 
   #elif ENABLED(NEWPANEL) && ENABLED(PANEL_ONE)
 
@@ -391,20 +283,11 @@
         #define BEEPER_PIN      37
       #endif
 
-    #elif ENABLED(ZONESTAR_LCD)
-
-      #define LCD_PINS_RS       64
-      #define LCD_PINS_ENABLE   44
-      #define LCD_PINS_D4       63
-      #define LCD_PINS_D5       40
-      #define LCD_PINS_D6       42
-      #define LCD_PINS_D7       65
-
     #else
 
-      #if ENABLED(MKS_12864OLED) || ENABLED(MKS_12864OLED_SSD1306)
-        #define LCD_PINS_DC     25   // Set as output on init
-        #define LCD_PINS_RS     27   // Pull low for 1s to init
+      #if ENABLED(MKS_12864OLED)
+        #define LCD_PINS_DC     25 // Set as output on init
+        #define LCD_PINS_RS     27 // Pull low for 1s to init
         // DOGM SPI LCD Support
         #define DOGLCD_CS       16
         #define DOGLCD_MOSI     17
@@ -455,7 +338,7 @@
       #endif
 
       #define BTN_ENC           35
-      #define SD_DETECT_PIN     49
+      #define SD_DETECT_PIN     -1
       #define KILL_PIN          41
 
       #if ENABLED(BQ_LCD_SMART_CONTROLLER)
@@ -467,24 +350,24 @@
       #define BTN_EN1           64
       #define BTN_EN2           59
       #define BTN_ENC           63
-      #define SD_DETECT_PIN     42
+      #define SD_DETECT_PIN     -1
 
     #elif ENABLED(LCD_I2C_PANELOLU2)
 
       #define BTN_EN1           47
       #define BTN_EN2           43
       #define BTN_ENC           32
-      #define LCD_SDSS          SDSS
+      #define LCD_SDSS          53
       #define KILL_PIN          41
 
     #elif ENABLED(LCD_I2C_VIKI)
 
-      #define BTN_EN1           22   // http://files.panucatt.com/datasheets/viki_wiring_diagram.pdf explains 40/42.
-      #define BTN_EN2            7   // 22/7 are unused on RAMPS_14. 22 is unused and 7 the SERVO0_PIN on RAMPS_13.
+      #define BTN_EN1           22 // http://files.panucatt.com/datasheets/viki_wiring_diagram.pdf explains 40/42.
+      #define BTN_EN2            7 // 22/7 are unused on RAMPS_14. 22 is unused and 7 the SERVO0_PIN on RAMPS_13.
       #define BTN_ENC           -1
 
-      #define LCD_SDSS          SDSS
-      #define SD_DETECT_PIN     49
+      #define LCD_SDSS          53
+      #define SD_DETECT_PIN     -1
 
     #elif ENABLED(VIKI2) || ENABLED(miniVIKI)
 
@@ -500,7 +383,8 @@
       #define BTN_EN2            7
       #define BTN_ENC           39
 
-      #define SD_DETECT_PIN     -1   // Pin 49 for display sd interface, 72 for easy adapter board
+      #define SDSS              53
+      #define SD_DETECT_PIN     -1 // Pin 49 for display sd interface, 72 for easy adapter board
       #define KILL_PIN          31
 
     #elif ENABLED(ELB_FULL_GRAPHIC_CONTROLLER)
@@ -515,11 +399,11 @@
       #define BTN_EN2           37
       #define BTN_ENC           31
 
-      #define LCD_SDSS          SDSS
-      #define SD_DETECT_PIN     49
+      #define LCD_SDSS          53
+      #define SD_DETECT_PIN     -1
       #define KILL_PIN          41
 
-    #elif ENABLED(MKS_MINI_12864)   // Added in Marlin 1.1.6
+    #elif ENABLED(MKS_MINI_12864)  // Added in Marlin 1.1.6
 
       #define DOGLCD_A0         27
       #define DOGLCD_CS         25
@@ -533,20 +417,21 @@
 
       #define BEEPER_PIN        37
       // not connected to a pin
-      #define LCD_BACKLIGHT_PIN 65   // backlight LED on A11/D65
+      #define LCD_BACKLIGHT_PIN 65 // backlight LED on A11/D65
 
       #define BTN_EN1           31
       #define BTN_EN2           33
       #define BTN_ENC           35
 
-      #define SD_DETECT_PIN     49
+      #define SDSS              53
+      #define SD_DETECT_PIN     -1
       #define KILL_PIN          64
 
     #elif ENABLED(MINIPANEL)
 
       #define BEEPER_PIN        42
       // not connected to a pin
-      #define LCD_BACKLIGHT_PIN 65   // backlight LED on A11/D65
+      #define LCD_BACKLIGHT_PIN 65 // backlight LED on A11/D65
 
       #define DOGLCD_A0         44
       #define DOGLCD_CS         66
@@ -562,12 +447,9 @@
       #define BTN_EN2           63
       #define BTN_ENC           59
 
-      #define SD_DETECT_PIN     49
+      #define SDSS              53
+      #define SD_DETECT_PIN     -1
       #define KILL_PIN          64
-
-    #elif ENABLED(ZONESTAR_LCD)
-
-      #define ADC_KEYPAD_PIN    12
 
     #else
 
@@ -583,9 +465,9 @@
         #define BTN_EN2         59
         #define BTN_ENC         63
       #elif ENABLED(PANEL_ONE)
-        #define BTN_EN1         59   // AUX2 PIN 3
-        #define BTN_EN2         63   // AUX2 PIN 4
-        #define BTN_ENC         49   // AUX3 PIN 7
+        #define BTN_EN1         59 // AUX2 PIN 3
+        #define BTN_EN2         63 // AUX2 PIN 4
+        #define BTN_ENC         49 // AUX3 PIN 7
       #else
         #define BTN_EN1         37
         #define BTN_EN2         35
@@ -593,7 +475,7 @@
       #endif
 
       #if ENABLED(G3D_PANEL)
-        #define SD_DETECT_PIN   49
+        #define SD_DETECT_PIN   -1
         #define KILL_PIN        41
       #endif
 

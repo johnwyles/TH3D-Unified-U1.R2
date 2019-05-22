@@ -45,17 +45,17 @@
 #endif
 
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD 120        // Seconds
+  #define THERMAL_PROTECTION_PERIOD HOTEND_THERMAL_PROTECTION_TIME // Seconds
   #define THERMAL_PROTECTION_HYSTERESIS 4     // Degrees Celsius
-  #define WATCH_TEMP_PERIOD 120                // Seconds
+  #define WATCH_TEMP_PERIOD HOTEND_THERMAL_PROTECTION_TIME                // Seconds
   #define WATCH_TEMP_INCREASE 4               // Degrees Celsius
 #endif
 
  
 #if ENABLED(THERMAL_PROTECTION_BED)
-  #define THERMAL_PROTECTION_BED_PERIOD 240    // Seconds
+  #define THERMAL_PROTECTION_BED_PERIOD BED_THERMAL_PROTECTION_TIME    // Seconds
   #define THERMAL_PROTECTION_BED_HYSTERESIS 4 // Degrees Celsius
-  #define WATCH_BED_TEMP_PERIOD 240                // Seconds
+  #define WATCH_BED_TEMP_PERIOD BED_THERMAL_PROTECTION_TIME                // Seconds
   #define WATCH_BED_TEMP_INCREASE 4               // Degrees Celsius
 #endif
 
@@ -274,14 +274,13 @@
   #else
     #define BABYSTEP_MULTIPLICATOR 10
   #endif
-  #if ENABLED(EZABL_ENABLE) && DISABLED(LCD2004)
-    #define BABYSTEP_ZPROBE_OFFSET   
+  #if ENABLED(EZABL_ENABLE) && DISABLED(LCD2004)   
     #define BABYSTEP_ZPROBE_GFX_OVERLAY
   #endif
   #define DOUBLECLICK_FOR_Z_BABYSTEPPING
   #define DOUBLECLICK_MAX_INTERVAL 2000 
   
-  #if ENABLED(EZABL_ENABLE) && DISABLED(LCD2004)
+  #if ENABLED(EZABL_ENABLE)
     #define BABYSTEP_ZPROBE_OFFSET
   #endif
 #endif

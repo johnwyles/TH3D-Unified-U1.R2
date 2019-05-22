@@ -19,7 +19,7 @@
 *
 * STEP 2:
 * Uncomment the printer you want to flash. The printers are sorted A-Z by brand name.
-* If you are using the CR-10S DUAL board with the Ender 3 then read the specific section below on how to do this.
+* If you are using the Creality Dual board with the Ender 3/Ender 5/CR-20 then read the specific section below in that printer section on how to do this.
 *
 * STEP 3: 
 * Select the COM port your printer is on from the Tools menu. If you do not see the COM port try
@@ -175,6 +175,9 @@
 //#define PETSFANG //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
+// TMC2208 V1.1.4 Board Setting - uncomment this to set the driver type if you are using the TMC V1.1.4 board
+//#define TMC_CREALITY_BOARD
+
 //===========================================================================
 // Creality CR-10S Options - Select 'Arduino Mega 2560' from Tools > Board
 //===========================================================================
@@ -294,6 +297,9 @@
 //#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
+// TMC2208 V1.1.4 Board Setting - uncomment this to set the driver type if you are using the TMC V1.1.4 board
+//#define TMC_CREALITY_BOARD
+
 //=================================================================================================
 // README - THE BELOW SETTINGS ARE ONLY FOR USING THE CR-10S DUAL BOARD WITH THE ENDER 3
 // DO NOT UNCOMMENT THE ABOVE #define ENDER3 LINE IF USING THE DUAL BOARD
@@ -356,6 +362,9 @@
 //#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
+// TMC2208 V1.1.4 Board Setting - uncomment this to set the driver type if you are using the TMC V1.1.4 board
+//#define TMC_CREALITY_BOARD
+
 //=================================================================================================
 // README - THE BELOW SETTINGS ARE ONLY FOR USING THE CR-10S DUAL BOARD WITH THE ENDER 5
 // DO NOT UNCOMMENT THE ABOVE #define ENDER5 LINE IF USING THE DUAL BOARD
@@ -409,11 +418,40 @@
 // Geeetech A10 Options - Select 'Arduino Mega 2560' from Tools > Board
 //===========================================================================
 // A10 V1 has the 40mm Fan on the left side of the hotend and NO filament sensor
-// A10 V2 has a filament sensor and no 40mm fan on the left side of the hotend (support coming soon)
+// A10 V2 has a filament sensor and no 40mm fan on the left side of the hotend
 //#define GEEETECH_A10_V1
+//#define GEEETECH_A10_V2
 
 // EZABL Probe Mounts
 //#define GEE_A10_V1_OEM
+//#define GEE_A10_V2_OEM
+//#define CUSTOM_PROBE
+
+//===========================================================================
+// Geeetech A10M Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define GEEETECH_A10M
+
+// EZABL Probe Mounts - uses the same mounts as the Geetech A10 V2
+//#define GEE_A10_V2_OEM
+//#define CUSTOM_PROBE
+
+//===========================================================================
+// Geeetech A20 Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define GEEETECH_A20
+
+// EZABL Probe Mounts - uses the same mounts as the Geetech A10 V2
+//#define GEE_A10_V2_OEM
+//#define CUSTOM_PROBE
+
+//===========================================================================
+// Geeetech A20M Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define GEEETECH_A20M
+
+// EZABL Probe Mounts - uses the same mounts as the Geetech A10 V2
+//#define GEE_A10_V2_OEM
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -585,6 +623,13 @@
 // If you are using a dual hotend with dual nozzles uncomment the below line
 //#define DUAL_HOTEND_DUAL_NOZZLES
 
+// While recommend the 12864 LCD we carry as it has a SD slot you can use a CR-10/Ender 3/Ender 5 LCD connected to EXP1 (rotate 180 degrees instead of aligning the pin)
+// Uncomment the below line to use the single cable Creality (Melzi) LCD instead of a standard 12864 LCD
+//#define CR10_STOCKDISPLAY
+
+// If your lcd knob moves the wrong direction uncomment the below line to reverse it
+//#define MKS_KNOB_REVERSE
+
 //===========================================================================
 // *************************  END PRINTER SECTION   *************************
 //===========================================================================
@@ -614,6 +659,10 @@
 
 // Heaters will stay on during probing - only use if directed to by support. Do not use on AC beds.
 //#define HEATERS_ON_DURING_PROBING
+
+// Letting the bed heat recover between probes can increase accuracy due to the bed warping during cooling/heating
+// Enabling the below option will let the bed get back to temperature during probing but will increase probing times.
+//#define WAIT_FOR_BED_HEATER
 
 // If you want a more granular control over the babystepping uncomment the below line.
 // This will make the adjustment finer than the standard setting.
@@ -702,6 +751,11 @@
 //#define KNOWN_BED_THERMISTOR
 //#define KNOWN_BED_THERMISTOR_VALUE X
 
+// If you want to make thermal protection periods less or more adjust below. The number is in seconds.
+// If you are getting false thermal runaway then increase the protection time. Do not make it over 300 for either setting.
+#define HOTEND_THERMAL_PROTECTION_TIME 60
+#define BED_THERMAL_PROTECTION_TIME 180
+
 // BED SETTINGS ------------------------------------
 
 // If you want PID tuning on your bed you can enable the below line. But PID on a bed is not typically needed. By default BED PID is disabled.
@@ -763,9 +817,11 @@
 // and then enter your probe offsets in the CUSTOM_PROBE section above. The Pin 27 boards on eBay are clones of our original EZOut. If you want to 
 // support the people that originally came up with the board you can get our EZOut breakout board here: http://EZOut.TH3DStudio.com
 // Sales from our shop allow us to allocate time for community firmware development at no charge to you. <3
+// If you have a V3 BL Touch also uncomment the BLTOUCH_V3 line to fix issues with the new V3 probe.
 //
 //#define BLTOUCH
-// Here is where you set your servo pin. EZOut Servo Pin Numbers: Others - 27, Ender 2 - 29. For 2560 boards look for the pin you connected the servo wire to and enter below.
+//#define BLTOUCH_V3
+// Here is where you set your servo pin. EZOut Servo Pin Numbers: Ender3/5/CR-10 - 27, Ender 2 - 29. For 2560 boards look for the pin you connected the servo wire to and enter below.
 //#define SERVO0_PIN 27
 //
 // NOTE: On 1284p boards due to space limitations and the large amount of code the BLTouch requires for the LCD Menus
@@ -807,8 +863,9 @@
 
 #define LCD_LANGUAGE en
 
+#include "Configuration_beta.h"
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R2.10a"
+#define UNIFIED_VERSION "TH3D U1.R2.11a"
 
 #endif // CONFIGURATION_H
