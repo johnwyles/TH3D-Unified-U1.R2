@@ -36,6 +36,24 @@
   #error "Marlin requires C++11 support (gcc >= 4.7, Arduino IDE >= 1.6.8). Please upgrade your toolchain."
 #endif
 
+// Because people don't read the directions sometimes, throw errors to prevent issues.
+
+#if ENABLED(POWER_LOSS_RECOVERY) && ENABLED(LINEAR_ADVANCE)
+  #error "Power Loss Recovery and Linear Advance cannot be used at the same time due to memory limitations. Disable one of these features and compile again"
+#endif
+
+#if ENABLED(POWER_LOSS_RECOVERY)
+  #warning "Serial buffer size reduced to 4 due to RAM limitations. Blobs and zits may occour when USB printing. Disable POWER_LOSS_RECOVERY if you want a larger serial buffer size."
+#endif
+
+#if ENABLED(LINEAR_ADVANCE) && (ENABLED(CR10S_PRO) || ENABLED(CR10_V2) || ENABLED(CR10_MAX) || ENABLED(TMC_CREALITY_BOARD))
+  #error "Due to the TMC2208 on the Creality boards being stuck in StealthChop. Linear Advance is not compatible with these boards. Disable Linear Advance and re-compile."
+#endif
+
+#if ENABLED(WANHAO_I3_PLUS) && ENABLED(MANUAL_MESH_LEVELING)
+  #error "The i3 Plus does not support manual mesh leveling due to the LCD limitations. Disable MANUAL_MESH_LEVELING and re-compile. If you want mesh leveling on the i3 Plus you need an ABL sensor."
+#endif
+
 #if ENABLED(EZOUT_ENABLE) && ENABLED(EZOUTV2_ENABLE)
   #error "Only use one type of EZOut sensor at a time. Please read the EZOut installation guide for details."
 #endif
@@ -48,12 +66,48 @@
   #error "Only select one type of hotend thermistor setting."
 #endif
 
+#if ENABLED(TH3D_HOTEND_THERMISTOR) && ENABLED(KNOWN_HOTEND_THERMISTOR)
+  #error "Only select one type of hotend thermistor setting."
+#endif
+
+#if ENABLED(V6_HOTEND) && ENABLED(KNOWN_HOTEND_THERMISTOR)
+  #error "Only select one type of hotend thermistor setting."
+#endif
+
+#if ENABLED(KEENOVO_TEMPSENSOR) && ENABLED(KNOWN_BED_THERMISTOR)
+  #error "Only select one type of bed thermistor setting."
+#endif
+
+#if ENABLED(KEENOVO_TEMPSENSOR) && ENABLED(TH3D_BED_THERMISTOR)
+  #error "Only select one type of bed thermistor setting."
+#endif
+
+#if ENABLED(KNOWN_BED_THERMISTOR) && ENABLED(TH3D_BED_THERMISTOR)
+  #error "Only select one type of bed thermistor setting."
+#endif
+
+#if (ENABLED(KNOWN_BED_THERMISTOR) || ENABLED(TH3D_BED_THERMISTOR) || ENABLED(KEENOVO_TEMPSENSOR)) && ENABLED(AC_BED)
+  #error "You cannot define a thermistor and use the AC_BED option. Use one or the other."
+#endif
+
+#if ENABLED(CR10S_NOFILAMENTSENSOR) && (ENABLED(EZOUT_ENABLE) || ENABLED(EZOUTV2_ENABLE))
+  #error "Do NOT use CR10S_NOFILAMENTSENSOR option when using any EZOut Filament sensor. Comment out CR10S_NOFILAMENTSENSOR to continue."
+#endif
+
 #if ENABLED(BLTOUCH) && (ENABLED(EZOUT_ENABLE) || ENABLED(EZOUTV2_ENABLE)) && ENABLED(SLIM_1284P)
   #error "You cannot use the EZOut and BLTouch at the same time due to limitations on your board."
 #endif
 
 #if ENABLED(BLTOUCH) && ENABLED(POWER_LOSS_RECOVERY) && ENABLED(SLIM_1284P)
-  #error "Due to space limitations the BLTouch cannot be used with Power Loss Recovery on your printer. Disable Power Loss Recovery and re-flash."
+  #error "Due to space limitations the BLTouch cannot be used with Power Loss Recovery on your printer. Disable Power Loss Recovery and re-compile."
+#endif
+
+#if ENABLED(POWER_LOSS_RECOVERY) && ENABLED(WANHAO_I3_PLUS)
+  #error "Power Loss Recovery is NOT supported on the Wanhao i3 Plus. Disable Power Loss Recovery and retry."
+#endif
+
+#if ENABLED(WANHAO_I3_PLUS) && ENABLED(JUNCTION_DEVIATION_ON)
+  #error "Junction Deviation is NOT supported on the Wanhao i3 Plus. Disable Junction Deviation and retry."
 #endif
 
 /**
@@ -423,10 +477,10 @@ static_assert(X_MAX_LENGTH >= X_BED_SIZE && Y_MAX_LENGTH >= Y_BED_SIZE,
 #if ENABLED(LCD_PROGRESS_BAR)
   #if DISABLED(SDSUPPORT) && DISABLED(LCD_SET_PROGRESS_MANUALLY)
     #error "LCD_PROGRESS_BAR requires SDSUPPORT or LCD_SET_PROGRESS_MANUALLY."
+  #elif DISABLED(ULTRA_LCD) && DISABLED(I3PLUS_LCD) // @advi3++: Allow LCD_PROGRESS_BAR
+    #error "LCD_PROGRESS_BAR requires a character LCD."
   #elif ENABLED(DOGLCD)
     #error "LCD_PROGRESS_BAR does not apply to graphical displays."
-  #elif DISABLED(ULTIPANEL)
-    #error "LCD_PROGRESS_BAR requires a character LCD."
   #elif ENABLED(FILAMENT_LCD_DISPLAY)
     #error "LCD_PROGRESS_BAR and FILAMENT_LCD_DISPLAY are not fully compatible. Comment out this line to use both."
   #endif
@@ -497,23 +551,6 @@ static_assert(X_MAX_LENGTH >= X_BED_SIZE && Y_MAX_LENGTH >= Y_BED_SIZE,
     #error "BABYSTEP_ZPROBE_GFX_OVERLAY requires a Graphical LCD."
   #elif ENABLED(BABYSTEP_ZPROBE_GFX_OVERLAY) && !ENABLED(BABYSTEP_ZPROBE_OFFSET)
     #error "BABYSTEP_ZPROBE_GFX_OVERLAY requires a BABYSTEP_ZPROBE_OFFSET."
-  #endif
-#endif
-
-#if DISABLED(BLTOUCH)
-  #if (Z_MIN_PROBE_ENDSTOP_INVERTING == false)
-    #if ENABLED(FIX_MOUNTED_PROBE)
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-      #warning "The Creality ABL Kit is not supported. EZABL kits help support development of this firmware. Please support us through our shop or buy a Genuine EZABL kit."
-    #endif
   #endif
 #endif
 
@@ -977,14 +1014,14 @@ static_assert(X_MAX_LENGTH >= X_BED_SIZE && Y_MAX_LENGTH >= Y_BED_SIZE,
    * Check auto bed leveling probe points
    */
   #if ABL_GRID
-
-    static_assert(LEFT_PROBE_BED_POSITION < RIGHT_PROBE_BED_POSITION, "LEFT_PROBE_BED_POSITION must be less than RIGHT_PROBE_BED_POSITION.");
-    static_assert(FRONT_PROBE_BED_POSITION < BACK_PROBE_BED_POSITION, "FRONT_PROBE_BED_POSITION must be less than BACK_PROBE_BED_POSITION.");
-    static_assert(LEFT_PROBE_BED_POSITION >= MIN_PROBE_X, "LEFT_PROBE_BED_POSITION is outside the probe region.");
-    static_assert(RIGHT_PROBE_BED_POSITION <= MAX_PROBE_X, "RIGHT_PROBE_BED_POSITION is outside the probe region.");
-    static_assert(FRONT_PROBE_BED_POSITION >= MIN_PROBE_Y, "FRONT_PROBE_BED_POSITION is outside the probe region.");
-    static_assert(BACK_PROBE_BED_POSITION <= MAX_PROBE_Y, "BACK_PROBE_BED_POSITION is outside the probe region.");
-
+    #if DISABLED(WANHAO_I3_PLUS)
+      static_assert(LEFT_PROBE_BED_POSITION < RIGHT_PROBE_BED_POSITION, "LEFT_PROBE_BED_POSITION must be less than RIGHT_PROBE_BED_POSITION.");
+      static_assert(FRONT_PROBE_BED_POSITION < BACK_PROBE_BED_POSITION, "FRONT_PROBE_BED_POSITION must be less than BACK_PROBE_BED_POSITION.");
+      static_assert(LEFT_PROBE_BED_POSITION >= MIN_PROBE_X, "LEFT_PROBE_BED_POSITION is outside the probe region.");
+      static_assert(RIGHT_PROBE_BED_POSITION <= MAX_PROBE_X, "RIGHT_PROBE_BED_POSITION is outside the probe region.");
+      static_assert(FRONT_PROBE_BED_POSITION >= MIN_PROBE_Y, "FRONT_PROBE_BED_POSITION is outside the probe region.");
+      static_assert(BACK_PROBE_BED_POSITION <= MAX_PROBE_Y, "BACK_PROBE_BED_POSITION is outside the probe region.");
+    #endif
   #endif // AUTO_BED_LEVELING_3POINT
 
 #elif ENABLED(MESH_BED_LEVELING)
@@ -1045,8 +1082,10 @@ static_assert(X_MAX_LENGTH >= X_BED_SIZE && Y_MAX_LENGTH >= Y_BED_SIZE,
  */
 #if ENABLED(Z_SAFE_HOMING)
   #if HAS_BED_PROBE
-    static_assert(WITHIN(Z_SAFE_HOMING_X_POINT, MIN_PROBE_X, MAX_PROBE_X), "Z_SAFE_HOMING_X_POINT is outside the probe region.");
-    static_assert(WITHIN(Z_SAFE_HOMING_Y_POINT, MIN_PROBE_Y, MAX_PROBE_Y), "Z_SAFE_HOMING_Y_POINT is outside the probe region.");
+    #if DISABLED(WANHAO_I3_PLUS)
+      static_assert(WITHIN(Z_SAFE_HOMING_X_POINT, MIN_PROBE_X, MAX_PROBE_X), "Z_SAFE_HOMING_X_POINT is outside the probe region.");
+      static_assert(WITHIN(Z_SAFE_HOMING_Y_POINT, MIN_PROBE_Y, MAX_PROBE_Y), "Z_SAFE_HOMING_Y_POINT is outside the probe region.");
+    #endif
   #else
     static_assert(WITHIN(Z_SAFE_HOMING_X_POINT, X_MIN_POS, X_MAX_POS), "Z_SAFE_HOMING_X_POINT can't be reached by the nozzle.");
     static_assert(WITHIN(Z_SAFE_HOMING_Y_POINT, Y_MIN_POS, Y_MAX_POS), "Z_SAFE_HOMING_Y_POINT can't be reached by the nozzle.");

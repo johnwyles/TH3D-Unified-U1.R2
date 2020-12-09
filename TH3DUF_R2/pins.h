@@ -144,6 +144,8 @@
   #include "pins_HJC2560C_REV2.h"     // ATmega2560                                 env:megaatmega2560
 #elif MB(GT2560_V3_0)
   #include "pins_GT2560_V3.0.h"       // ATmega2560									env:megaatmega2560
+#elif MB(MKS_GEN_L_V2)
+  #include "pins_MKS_GEN_L_V2.h"      // ATmega2560                                 env:megaatmega2560
 
 //
 // Other ATmega1280, ATmega2560
@@ -194,7 +196,13 @@
 #elif MB(GT2560_REV_B)
   #include "pins_GT2560_B.h"          // ATmega2560                                 env:megaatmega2560
 #elif MB(COPYMASTER300)
-  #include "pins_RAMPS_COPYMASTER300.h"//ATmega2560                                env:megaatmega2560
+  #include "pins_RAMPS_COPYMASTER300.h"//ATmega2560                                 env:megaatmega2560
+#elif MB(I3_PLUS)
+  #include "pins_I3_PLUS.h"           // ATmega2560                                 env:megaatmega2560
+#elif MB(I3_PLUS_MARK2)
+  #include "pins_I3_PLUS_MARK2.h"     // ATmega2560                                 env:megaatmega2560
+#elif MB(I3_PLUS_HE180021)
+  #include "pins_I3_PLUS_HE180021.h"  // ATmega2560                                 env:megaatmega2560
 
 //
 // ATmega1281, ATmega2561

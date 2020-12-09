@@ -10,8 +10,9 @@
 * 
 * EZABL SETUP NOTES: 
 * If you have EZABL uncomment the mount you are using with the printer. 
-* If you have a custom/unsupported mount uncomment #define CUSTOM_MOUNT and enter your offsets 
-* below in the CUSTOM MOUNT section. Refer to the EZABL guide to get your offsets.
+* If you have a custom/unsupported mount uncomment #define CUSTOM_PROBE and enter your offsets 
+* below in the Custom Probe Mount Settings section.
+* Refer to the Custom Probe Mount Settings section below for entering these and how to measure.
 * 
 * STEP 1:
 * Select the correct board from the tools menu for the printer you are flashing.
@@ -53,34 +54,13 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 #define CONFIGURATION_H_VERSION 010109
+#include "Configuration_beta.h"
 
 //===========================================================================
 //============================ TH3D Configuration ===========================
 //===========================================================================
 
 // ONLY UNCOMMENT THINGS IN ONE PRINTER SECTION!!! IF YOU HAVE MULTIPLE MACHINES FLASH THEM ONE AT A TIME.
-
-//===========================================================================
-// *************************     TH3D PRINTERS      *************************
-//===========================================================================
-
-//===========================================================================
-// TH3D Alpha EZ300 Options - Select Arduino Mega 2560 from Tools > Board
-//===========================================================================
-//#define TH3D_EZ300
-
-// EZABL Probe Mounts
-//#define EZ300_OEM_MOUNT
-
-// The Alpha X Carriage is 100% compatible with the Creality printer mounts.
-//#define CR10_OEM
-//#define CR10_VOLCANO
-//#define CR10_V6HEAVYDUTY
-//#define CR10_FANG
-//#define TM3DAERO
-//#define TM3DAERO_EXTENDED
-//#define PETSFANG //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
-//#define CUSTOM_PROBE
 
 //===========================================================================
 // *************************    ADIMLab PRINTERS    *************************
@@ -129,23 +109,77 @@
 // ANET Printers Options - Select 'ANET V1.0' from Tools > Board
 //===========================================================================
 // Uncomment the ANET Model you are using
-//#define ANET_A2 //** please see option below to choose bed size for the A2 only!!
+//#define ANET_A2
 //#define ANET_A6
 //#define ANET_A8
+//#define ANET_A8_PLUS
 //#define ANET_E10
 //#define ANET_E12
+//#define ANET_E16
 
-// Choose bed size for A2 only
-// IGNORE THESE OPTIONS FOR MACHINES OTHER THAN THE A2
-//#define A2_SMALL_BED //(220x220)
-//#define A2_LARGE_BED //(220x270)
-
-// Choose which type of LCD you have (Select One option)
-//#define ANET_LCD12864 //This is the larger LCD with the rotary controller found on most ANET machines
-//#define ANET_LCD2004 //This is the LCD with the 5 button keypad usually found on A8 and some A2 machines
+// If you are using our EZOut V2 (connects to LCD header) filament sensor kit please follow the install guide
+// and then uncomment the #define EZOUTV2_ENABLE line below.
+// Do NOT ever connect our filament sensor without the supplied adapter board
+//#define EZOUTV2_ENABLE
 
 // EZABL Probe Mounts - Bootscreen will be disabled when enabling EZABL on the Anet Boards due to space issues
 //#define ANET_OEM
+//#define CUSTOM_PROBE
+
+// Extra Anet Options ----------------------------------------------------------
+
+// If you have the larger A2 bed (220x270) uncomment the below line.
+//#define A2_LARGE_BED
+
+// LCD Overide - Change if you have a different screen than the one that came with the printer by default
+//#define ANET_LCD12864   // Rotary Encoder Model
+//#define ANET_LCD2004    // 5 Button Keypad Model
+
+//===========================================================================
+// ******************     ARTILLERY/EVNOVO PRINTERS      ********************
+//===========================================================================
+
+//===========================================================================
+// Artillery AL-4 Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define ARTILLERY_AL4
+
+// If you are using our EZOut V2 (connects to X+ connector) filament sensor kit please follow the install guide
+// and then uncomment the #define EZOUTV2_ENABLE line below. Do NOT ever connect our filament sensor without the supplied adapter board.
+//#define EZOUTV2_ENABLE
+
+// The AL-4 Carriage is 100% compatible with the Creality printer mounts.
+// EZABL Probe Mounts
+//#define CR10_OEM
+//#define CR10_VOLCANO
+//#define CR10_V6HEAVYDUTY
+//#define TM3DAERO
+//#define TM3DAERO_EXTENDED
+//#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
+//#define CUSTOM_PROBE
+
+// If you swapped the X, Y, or Z drivers with the TMC2208s you may need to reverse your axis. Uncomment the line for each axis that needs reversing.
+// Enabling these options will also set the driver delays/modes to the TMC2208_STANDALONE mode for whatever axis you uncomment it for.
+//#define ARTILLERY_AL4_X_AXIS_TMC2208
+//#define ARTILLERY_AL4_Y_AXIS_TMC2208
+//#define ARTILLERY_AL4_Z_AXIS_TMC2208
+
+//===========================================================================
+// Sidewinder X1 Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+
+//Use Unified 2.0 for this machine - Go to https://UF2.TH3DStudio.com
+
+//===========================================================================
+// ***********************     ANYCUBIC PRINTERS     ************************
+//===========================================================================
+
+//===========================================================================
+// Mega Zero Options - Select 'Sanguino 1284p' from Tools > Board
+//===========================================================================
+//#define AC_MEGA_ZERO
+
+// EZABL Probe Mounts
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -155,28 +189,14 @@
 //===========================================================================
 // Creality CR-10 Options - Select 'Sanguino 1284P' from Tools > Board
 //===========================================================================
-//#define CR10
-//#define CR10_MINI
-//#define CR10_S4
-//#define CR10_S5
 
-// If you are using our EZOut V1/V2 (connects to LCD header) filament sensor kit please follow the install guide
-// and then uncomment the #define EZOUT_ENABLE line below.
-// Do NOT ever connect our filament sensor without the supplied adapter board.
-//#define EZOUT_ENABLE
+//Use Unified 2.0 for this machine - Go to https://UF2.TH3DStudio.com
 
-// EZABL Probe Mounts
-//#define CR10_OEM
-//#define CR10_VOLCANO
-//#define CR10_V6HEAVYDUTY
-//#define CR10_FANG
-//#define TM3DAERO
-//#define TM3DAERO_EXTENDED
-//#define PETSFANG //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
-//#define CUSTOM_PROBE
+//===========================================================================
+// Creality CR-10 V2 Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
 
-// TMC2208 V1.1.4 Board Setting - uncomment this to set the driver type if you are using the TMC V1.1.4 board
-//#define TMC_CREALITY_BOARD
+//Use Unified 2.0 for this machine - Go to https://UF2.TH3DStudio.com
 
 //===========================================================================
 // Creality CR-10S Options - Select 'Arduino Mega 2560' from Tools > Board
@@ -227,6 +247,22 @@
 //#define EZOUTV2_DUAL_ENABLE
 
 //===========================================================================
+// Creality CR-10S Pro Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define CR10S_PRO
+
+// NOTE: The CR-10S Pro is ONLY compatible with our firmware once you have installed the LCD conversion kit
+// the stock LCD is not supported due to closed source firmware limitations on it.
+// You can get the LCD conversion kit here: https://www.th3dstudio.com/product/cr-10s-pro-lcd-ezabl-upgrade-kit/
+
+// EZABL/ABL Probe Mounts
+//#define CR10S_PRO_OEM
+//#define CUSTOM_PROBE
+
+// If you are using the stock Creality ABL probe uncomment the below line
+//#define CR10S_PRO_STOCK_ABL
+
+//===========================================================================
 // Creality CR-20 Options - Select 'Arduino Mega 2560' from Tools > Board
 //===========================================================================
 //#define CR20
@@ -257,31 +293,36 @@
 //#define EZOUTV2_DUAL_ENABLE
 
 //===========================================================================
-// Creality Ender 2 Options - Select 'Sanguino 1284p' from Tools > Board
+// Creality CR-X Options - Select 'Arduino Mega 2560' from Tools > Board
 //===========================================================================
-//#define ENDER2
+//#define CRX
 
-// If you are using our EZOut V2 (connects to the LCD header & connect the 2 pin connector to the "Check" header to the right of the LCD connection) filament sensor kit please follow the install guide
-// and then uncomment the #define EZOUTV2_ENABLE line below. Do NOT ever connect our filament sensor without the supplied adapter board.
+// NOTE: The CR-X is ONLY compatible with our firmware once you have installed the LCD conversion kit
+// the stock LCD is not supported due to closed source firmware limitations on it.
+// You can get the LCD conversion kit here: https://www.th3dstudio.com/product/cr-x-12864-lcd-upgrade-kit/
+
+// If you are using our EZOut V2 filament sensor kit please follow the install guide
+// E0 (Left Extruder) sensor connects to X+
+// E1 (Right Extruder) sensor connects to Y+
+// Then uncomment the #define EZOUTV2_ENABLE line below. Do NOT ever connect our filament sensor without the supplied adapter board.
 //#define EZOUTV2_ENABLE
 
-// EZABL Probe Mounts (Ender 2 can use the same mounts as CR-10, Ender 2 Specific mounts minimize distance from probe to nozzle for max probing area)
-// If you have issues with the non-Ender 2 mounts then please print them off and switch to one of them before contacting support. 
-// This is because the probeable area on the non-Ender 2 mounts is too small typically to get a good result.
-//#define ENDER2_OEM
-//#define ENDER2_V6
-//#define CR10_OEM
-//#define CR10_VOLCANO
-//#define CR10_V6HEAVYDUTY
-//#define TM3DAERO
-//#define TM3DAERO_EXTENDED
-//#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
+// EZABL Probe Mounts
+//#define CRX_OEM
 //#define CUSTOM_PROBE
 
 //===========================================================================
-// Creality Ender 3 Options - Select 'Sanguino 1284p' from Tools > Board
+// Creality Ender 2 Options - Select 'Sanguino 1284p' from Tools > Board
 //===========================================================================
-//#define ENDER3
+
+//Use Unified 2.0 for this machine - Go to https://UF2.TH3DStudio.com
+
+//===========================================================================
+// Creality Ender 3/3 Pro Options - Select 'Sanguino 1284p' from Tools > Board
+//===========================================================================
+
+//Use Unified 2.0 for this machine when using the "Melzi" board - Go to https://UF2.TH3DStudio.com
+// If you are using the CR-10S Dual Board still use this firmware. We will port the dual board over to Unified 2 in the future.
 
 // If you are using our EZOut V1/V2 (connected to LCD header) filament sensor kit please follow the install guide
 // and then uncomment the #define EZOUT_ENABLE line below.
@@ -297,8 +338,10 @@
 //#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
-// TMC2208 V1.1.4 Board Setting - uncomment this to set the driver type if you are using the TMC V1.1.4 board
-//#define TMC_CREALITY_BOARD
+// Ender Xtender Kit Options
+//#define ENDER_XTENDER_400
+//#define ENDER_XTENDER_400XL
+//#define ENDER_XTENDER_XL
 
 //=================================================================================================
 // README - THE BELOW SETTINGS ARE ONLY FOR USING THE CR-10S DUAL BOARD WITH THE ENDER 3
@@ -309,7 +352,8 @@
 // CR-10S board but rotate it 180 degrees. The LCD end of the cable goes to EXP3 on the Ender 3 LCD.
 // You will have to force it into the EXP1 but it will fit and work.
 // 
-// EZABL and EZOut support are still supported just use the lines above this comment section.
+// EZABL and EZOut support are still supported, just use the lines above this comment section.
+// Ender Xtender options still work, just use the lines above this comment section.
 //=================================================================================================
 //#define ENDER3_DUALBOARD
 
@@ -346,14 +390,17 @@
 //===========================================================================
 // Creality Ender 5 Options - Select 'Sanguino 1284p' from Tools > Board
 //===========================================================================
-//#define ENDER5
+
+//Use Unified 2.0 for this machine when using the "Melzi" board - Go to https://UF2.TH3DStudio.com
+// If you are using the CR-10S Dual Board still use this firmware. We will port the dual board over to Unified 2 in the future.
 
 // If you are using our EZOut V1/V2 (connected to LCD header) filament sensor kit please follow the install guide
 // and then uncomment the #define EZOUT_ENABLE line below.
 // Do NOT ever connect our filament sensor without the supplied adapter board.
 //#define EZOUT_ENABLE
 
-// EZABL Probe Mounts (Ender 5 uses the same mounts as CR-10)
+// EZABL Probe Mounts (Ender 5 can use most of the same mounts as CR-10)
+//#define ENDER5_OEM
 //#define CR10_OEM
 //#define CR10_VOLCANO
 //#define CR10_V6HEAVYDUTY
@@ -362,8 +409,8 @@
 //#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
-// TMC2208 V1.1.4 Board Setting - uncomment this to set the driver type if you are using the TMC V1.1.4 board
-//#define TMC_CREALITY_BOARD
+// If you have the new Ender 5 or Ender 5 Pro Model that has the new 800steps/mm Z leadscrew uncomment the below option to set the correct steps/mm
+//#define ENDER5_NEW_LEADSCREW
 
 //=================================================================================================
 // README - THE BELOW SETTINGS ARE ONLY FOR USING THE CR-10S DUAL BOARD WITH THE ENDER 5
@@ -389,6 +436,47 @@
 // If you are using a 2nd EZOut V2 (connects to Y+ connector) filament sensor kit please follow the install guide
 // and then uncomment the #define EZOUTV2_DUAL_ENABLE line below. Do NOT ever connect our filament sensor without the supplied adapter board.
 //#define EZOUTV2_DUAL_ENABLE
+
+//===========================================================================
+// Creality Ender 5 PLUS Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define ENDER5_PLUS
+
+// NOTE: Ender 5 Plus is ONLY compatible with our firmware once you have installed the LCD conversion kit
+// the stock LCD is not supported due to closed source firmware limitations on it.
+// You can get the LCD conversion kit here: https://www.th3dstudio.com/product/ender-5-plus-12864-lcd-upgrade-kit/
+
+// EZABL/ABL Probe Mounts - Uses some CR-10/Ender 3 Mounts
+//#define CR10_OEM
+//#define CUSTOM_PROBE
+
+// Ender 5 Plus ONLY ABL Settings -------------------------------------------
+// By default the Ender 5 Plus comes with a BL Touch. Enabling the ENDER5_PLUS_EZABL or ENDER5_PLUS_NOABL will override the BL Touch setting
+// If you are using the stock BL Touch with a non-stock mount enable the CUSTOM_PROBE line above and enter the offsets below for the new mount.
+//#define ENDER5_PLUS_EZABL
+//#define ENDER5_PLUS_NOABL
+
+//===========================================================================
+// ***************************   CTC PRINTERS    ***************************
+//===========================================================================
+
+//===========================================================================
+// CTC i3 Pro B "Woody" Options - Select 'Anet V1.0' from Tools > Board
+// Model has the Red Anet style Melzi board
+//===========================================================================
+//#define CTC_I3_PROB
+
+// If you swapped the stock threaded rod "leadscrews" for T8x8 uncomment the below line to set the steps for those
+//#define CTC_I3_T8_LEAD
+
+// If you are using our EZOut V2 (connects to LCD header) filament sensor kit please follow the install guide
+// and then uncomment the #define EZOUTV2_ENABLE line below.
+// Do NOT ever connect our filament sensor without the supplied adapter board
+// This printer uses the Anet 2004 LCD EZOut Package
+//#define EZOUTV2_ENABLE
+
+// EZABL Probe Mounts
+//#define CUSTOM_PROBE
 
 //===========================================================================
 // *************************  FOLGERTECH PRINTERS   *************************
@@ -468,8 +556,43 @@
 //#define CUSTOM_PROBE
 
 //===========================================================================
+// **************************    SOVOL PRINTERS    **************************
+//===========================================================================
+
+//===========================================================================
+// SOVOL SV01 Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define SOVOL_SV01
+
+// EZABL Probe Mounts
+//#define SV01_OEM_MOUNT
+//#define CUSTOM_PROBE
+
+//===========================================================================
 // *************************     TEVO PRINTERS      *************************
 //===========================================================================
+
+//===========================================================================
+// TEVO Tarantula Pro Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define TARANTULA_PRO
+
+// If you are using our EZOut V2 (connects to X+ connector) filament sensor kit please follow the install guide
+// and then uncomment the #define EZOUTV2_ENABLE line below.
+// Do NOT ever connect our filament sensor without the supplied adapter board.
+//#define EZOUTV2_ENABLE
+
+// EZABL Probe Mounts
+// Before connecting the EZABL control board to the Tarantula Pro please remove the 5V wire from the 3 pin plug.
+// Pictures and write up available here: https://www.th3dstudio.com/knowledgebase/ezabl-tevo-tarantula-pro-endstop-cable-mod/
+//#define TARANTULA_PRO_OEM
+//#define CUSTOM_PROBE
+
+// Use Tarantula Pro Bootscreen instead of TH3D
+//#define TARANTULA_PRO_BOOT
+
+// Slow down the hotend fan and control box fans to reduce noise
+//#define TARANTULA_PRO_QUIET
 
 //===========================================================================
 // TEVO Tornado Options - Select 'Arduino Mega 2560' from Tools > Board
@@ -539,14 +662,41 @@
 //#define CUSTOM_PROBE
 
 //===========================================================================
-// Wanhao i3 MINI Options - Select 'Arduino Mega 2560' from Tools > Board
+// Wanhao i3 Plus Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+// Before compiling copy all files from "\Firmware\ADVi3PPFiles" folder to the
+// "\Firmware\TH3DUF_R2" folder. Once copied the firmware will only work for 
+// the Wanhao i3 Plus. If you wish to flash other machines then extract a new
+// copy of the firmware to a different location on your computer.
+//
+// Touch LCD Flashing
+// You MUST flash the LCD firmware with the ADVi3++ 4.0.3 LCD image to use 
+// our firmware with the Wanhao i3 Plus. Get it here: 
+// How to Flash AVDi3++ LCD: https://community.advi3pp.com/t/how-to-flash/16
+// Touchscreen Guide: https://community.advi3pp.com/t/lcd-touch-screen-guide/20
+//===========================================================================
+//#define WANHAO_I3_PLUS
+
+// Uncomment to enable EZABL support - Probe Offsets are set from the LCD
+//#define WANHAO_I3_PLUS_EZABL
+
+// The Wanhao i3 Plus support would not be possible
+// without the open source work of Sebastien Andrivet
+// Please consider becoming a Patreon of his.
+// Patreon Link: https://www.patreon.com/join/andrivet
+
+//===========================================================================
+// Wanhao i3 MINI (V1/V2) Options - Select 'Arduino Mega 2560' from Tools > Board
 //===========================================================================
 //#define WANHAO_I3MINI
+//#define WANHAO_I3MINI_V2
 
 // EZABL Probe Mounts
 //#define WANHAO_I3MINI_OEM
 //#define WANHAO_I3MINI_OEM_EZABLMINI
 //#define CUSTOM_PROBE
+
+// If you have the V1 and you've added a heated bed, just uncomment the V2 option
 
 //===========================================================================
 // Wanhao D6 Options - Select 'Arduino Mega 2560' from Tools > Board
@@ -563,11 +713,27 @@
 //#define CUSTOM_PROBE
 
 //===========================================================================
+// ************************    ZONESTAR PRINTERS     ************************
+//===========================================================================
+
+//===========================================================================
+// Zonestar Z5F Options - Select 'Arduino Mega 2560' from Tools > Board
+//===========================================================================
+//#define ZONESTAR_Z5F
+
+//Stock ABL Option
+//#define ZONESTAR_Z5F_STOCK_ABL
+
+// EZABL Probe Mounts
+//#define CUSTOM_PROBE
+
+//===========================================================================
 // ***********************  MKS Gen L Based Printer   ***********************
 // *************  Select 'Arduino Mega 2560' from Tools > Board *************
 // **** Please refer to the TH3D MKS Gen L Documentation Guide for Setup ****
-// **** Endstop/Motors: changing from 0 to 1 inverts the logic/direction ****
-// ********** TH3D MKS Gen L Documentation Coming end of April 2019 *********
+// *Endstop/Motors/Homing: changing from 0 to 1 inverts the logic/direction *
+// ****** We have a detailed guide here: http://mksguide.th3dstudio.com *****
+// ******** Use the code GENLGUIDEHALFOFF for 50% off our PDF Guide *********
 //===========================================================================
 
 //#define MKS_PRINTER
@@ -581,6 +747,10 @@
 #define MKS_X_ENDSTOP 0
 #define MKS_Y_ENDSTOP 0
 #define MKS_Z_ENDSTOP 0
+
+// Homing Settings
+#define X_HOME_LOCATION 0
+#define Y_HOME_LOCATION 0
 
 // Steps per MM Settings
 #define MKS_X_STEPS 80
@@ -630,6 +800,9 @@
 // If your lcd knob moves the wrong direction uncomment the below line to reverse it
 //#define MKS_KNOB_REVERSE
 
+// If you are using the RepRap 2004 LCD Controller Use the below line to enable that display
+//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+
 //===========================================================================
 // *************************  END PRINTER SECTION   *************************
 //===========================================================================
@@ -642,17 +815,18 @@
 // Default is 3 which gives you 3x3 grid for a total of 9 points. STICK WITH ODD NUMBERS
 #define EZABL_POINTS 3
 
-// If you want to probe in on the bed more than 15mm change this below. 
-// Do not use 30mm for the Standard CR-10/s or the S4 as you will be on the bed screws.
-// Try 50mm to avoid the binder clips if you use them. Do NOT go under 15mm here.
-// You can do down to 10mm on the Wanhao i3 since it cannot print on the entire bed.
-// You can do down to 5mm on the Wanhao i3 Mini since it cannot print on the entire bed.
-// (only used if EZABL enabled)
-#define EZABL_PROBE_EDGE 15
+// If you want to change how far in or out the probe senses change EZABL_PROBE_EDGE value below
+// Most Machines - 35
+// Binder Clips? - 50
+#define EZABL_PROBE_EDGE 35
 
 // If you have issues with your machine running the faster probe setting disable the #define EZABL_FASTPROBE below.
 // DO NOTE: Most machines will work with the fast probe enabled. Use M48 to verify accuracy.
 #define EZABL_FASTPROBE
+
+// Superfast probing - Only works with the EZABL Pro Sensors
+// DO NOTE: Not all machines will work with the fast probe enabled. Use M48 to verify accuracy and make sure the Z isn't binding with the high speeds.
+//#define EZABL_SUPERFASTPROBE
 
 // This will disable the XYE motors during probing. Can be useful if you have stepper motors causing interference issues with the EZABL sensor.
 //#define PROBING_MOTORS_OFF
@@ -675,6 +849,8 @@
 //#define SLOWER_PROBE_MOVES
 
 //================================================================================
+// Custom Probe Mount Settings
+//
 // IF YOU HAVE A CUSTOM PROBE MOUNT OR ONE THAT IS NOT PRE-SUPPORTED UNCOMMENT THE
 // CUSTOM_PROBE OPTION IN YOUR PRINTER SECTION AND ENTER YOUR PROBE LOCATION BELOW
 //================================================================================
@@ -706,22 +882,25 @@
 //******************** EXTRA FEATURES AND TWEAKS ****************************
 //===========================================================================
 
-// TH3D RGB LED STRIP ------------------------------
-// If you are using the TH3D RGB strip connect to the Z+ endstop connection, power supply connection, and uncomment the below line
-//#define TH3D_RGB_STRIP
-// If you cut the strip shorter please count the LEDs that are left, uncomment the line below, and change the number below to how many LEDs you have.
-#define TH3D_RGB_STRIP_LED_COUNT 20
-
 // EXTRUDER SETTINGS -------------------------------
+// Use to set custom esteps and/or reverse your E Motor direction if you are installing an extruder that needs the direction reversed.
+// If you reversed the wiring on your E motor already (like the Bondtech Guide says to do) then you do not need to reverse it in the firmware here.
 
 // If you want to change the Esteps for your printer you can uncomment the below line and set CUSTOM_ESTEPS_VALUE to what you want - USE WHOLE NUMBERS ONLY
+// This option sets the esteps from the CUSTOM_ESTEPS_VALUE line below.
+// If you need to reverse the e motor direction also enabled the REVERSE_E_MOTOR_DIRECTION option.
+// Example EStep Values: TH3D Aluminum Extruder - 95 ESteps, TH3D Tough Extruder - 463 ESteps, BMG Extruder - 415 ESteps
+// When installing a Tough Extruder or E3D Titan or Bondtech that is Geared you likely need to enable the REVERSE_E_MOTOR_DIRECTION option
 //#define CUSTOM_ESTEPS
-#define CUSTOM_ESTEPS_VALUE 999
+//#define REVERSE_E_MOTOR_DIRECTION
+#define CUSTOM_ESTEPS_VALUE 463
 
-// If you are using an TH3D Tough Extruder, Bondtech BMG (set steps below to 415), or E3D Titan Extruder
-// uncomment the below line to setup the firmware to the correct steps and direction. Also applicable to Titan/Tough Aero setups.
-//#define TITAN_EXTRUDER
-#define TITAN_EXTRUDER_STEPS 463
+// FILAMENT SENSOR UNLOAD SETTINGS -----------------
+// If you have a filament sensor that is physically mounted to the machine you can enable MOUNTED_FILAMENT_SENSOR to set the unload length to 0 to prevent filament from backing up in the sensor by uncommenting MOUNTED_FILAMENT_SENSOR 
+//#define MOUNTED_FILAMENT_SENSOR
+
+// If you have a direct drive machine with a filament sensor uncomment DIRECT_DRIVE_PRINTER to decrease the unload length from 100mm to 20mm
+//#define DIRECT_DRIVE_PRINTER
 
 // DUAL HOTEND SETTINGS ----------------------------
 
@@ -729,13 +908,24 @@
 // This setting only applies to printers using a dual extruder board.
 #define DUAL_HOTEND_X_DISTANCE 18.0
 
-// THERMISTOR SETTINGS -----------------------------
+// HOTEND THERMISTOR SETTINGS ----------------------
 
-// If you are using an E3D V6 Hotend with their cartridge thermistor (not glass version) uncomment the below line.
+// If you are using an E3D V6 Hotend (or Hemera) with their cartridge thermistor (not glass version) uncomment the below line.
 //#define V6_HOTEND
 
 // If you are using a Tough Hotend from TH3D or any thermistors TH3D sells for your hotend uncomment the below line.
 //#define TH3D_HOTEND_THERMISTOR
+
+// If you are using a known hotend thermistor value uncomment the below 2 lines and enter the thermistor number replacing the X after the #define KNOWN_HOTEND_THERMISTOR_VALUE
+//#define KNOWN_HOTEND_THERMISTOR
+//#define KNOWN_HOTEND_THERMISTOR_VALUE X
+
+// If you have a hotend and thermistor capable of over 290C you can set the max temp value below.
+// Setting this higher than 290C on a stock or traditional thermistor will damage it. Refer to your thermistor documentation to see what max temp is.
+//#define HIGH_TEMP_THERMISTOR
+#define HIGH_TEMP_THERMISTOR_TEMP 350
+
+// BED THERMISTOR SETTINGS -------------------------
 
 // If you are using a thermistor TH3D sells for your bed uncomment the below line.
 //#define TH3D_BED_THERMISTOR
@@ -743,13 +933,11 @@
 // If you are using a Keenovo with SSR and the Keenovo temperature sensor uncomment the below line.
 //#define KEENOVO_TEMPSENSOR
 
-// If you are using a known hotend thermistor value uncomment the below 2 lines and enter the thermistor number replacing the X after the #define KNOWN_HOTEND_THERMISTOR_VALUE
-//#define KNOWN_HOTEND_THERMISTOR
-//#define KNOWN_HOTEND_THERMISTOR_VALUE X
-
 // If you are using a known bed thermistor value uncomment the below 2 lines and enter the thermistor number replacing the X after the #define KNOWN_BED_THERMISTOR_VALUE
 //#define KNOWN_BED_THERMISTOR
 //#define KNOWN_BED_THERMISTOR_VALUE X
+
+// THERMAL RUNAWAY PROTECTION SETTINGS -------------
 
 // If you want to make thermal protection periods less or more adjust below. The number is in seconds.
 // If you are getting false thermal runaway then increase the protection time. Do not make it over 300 for either setting.
@@ -779,57 +967,57 @@
 // If your printer is homing to the endstops hard uncomment this to change the homing speed/divisor to make it less aggressive.
 //#define SLOWER_HOMING
 
+// Using a Creality Silent Board? Enable the below option to set the correct driver setting for those boards
+//#define TMC_CREALITY_BOARD
+
 // BOOT SCREEN OPTIONS -----------------------------
 
 // Use TinyMachines Bootscreen instead of TH3D
 //#define TM3D_BOOT
 
-// Use Ender Bootscreeen instead of TH3D
-//#define ENDER_BOOT
-
 // Disable Bootscreen completely
 //#define DISABLE_BOOT
 
 //===========================================================================
-//****************** COMMUNITY REQUESTED FEATURES ***************************
+//*************************** COMMUNITY FEATURES ****************************
 //===========================================================================
 
 // HOME OFFSET ADJUSTMENT --------------------------
-// If you need to adjust your XY home offsets from defaults then you can uncomment the HOME_ADJUST line below and enter your
+// If you need to adjust your XY home offsets from defaults then you can uncomment the HOME_ADJUST_LOCATION line below and enter your
 // custom XY offsets. This is provided for convenience and is unsupported with included product support.
 // How to use - measure (home XY then jog using the LCD 1mm at a time) the X and Y distance the nozzle is off
 // the build plate and then put those as NEGATIVE values below, positive values will NOT work (move your endstops to fix a positve offset).
 //#define HOME_ADJUST
-#define X_HOME_LOCATION -10
-#define Y_HOME_LOCATION -10
+#define X_HOME_ADJUST_LOCATION -10
+#define Y_HOME_ADJUST_LOCATION -10
 
 // LINEAR ADVANCE ----------------------------------
 // See here on how to use Linear Advance: http://marlinfw.org/docs/features/lin_advance.html
-//
+// NOTE: Linear Advance does NOT work with the Creality Silent boards, CR-10S Pro, CR-10S Max, and CR-10 V2 due to poor driver implementation.
 //#define LINEAR_ADVANCE
 // Change the K Value here or use M900 KX.XX in your starting code (recommended).
 #define LINEAR_ADVANCE_K 0
-// NOTE: If using linear advance along with EZABL on a printer with 1284p some Control > Motion menus will not be displayed due to space restrictions.
-// You can still change these via GCode commands.
 
 // BL TOUCH ----------------------------------------
 // If you want to use the BL-Touch install your EZOut Board, uncomment the 2 lines below, uncomment the CUSTOM_PROBE option in your printer section, 
-// and then enter your probe offsets in the CUSTOM_PROBE section above. The Pin 27 boards on eBay are clones of our original EZOut. If you want to 
-// support the people that originally came up with the board you can get our EZOut breakout board here: http://EZOut.TH3DStudio.com
+// and then enter your probe offsets in the CUSTOM_PROBE section above. The Pin 27 boards on other ecommerce sites are clones of our original EZOut.
+// If you want to support the people that originally came up with the board you can get our EZOut breakout board here: http://EZOut.TH3DStudio.com
 // Sales from our shop allow us to allocate time for community firmware development at no charge to you. <3
-// If you have a V3 BL Touch also uncomment the BLTOUCH_V3 line to fix issues with the new V3 probe.
-//
 //#define BLTOUCH
-//#define BLTOUCH_V3
-// Here is where you set your servo pin. EZOut Servo Pin Numbers: Ender3/5/CR-10 - 27, Ender 2 - 29. For 2560 boards look for the pin you connected the servo wire to and enter below.
+
+// Here is where you set your servo pin. 
+// EZOut Servo Pin Numbers: 
+// Anet(with 2004LCD)/Ender3/5/CR-10 - 27
+// Anet(with 12864LCD)/Ender 2 - 29
+// For 2560 boards look for the pin you connected the servo wire to and enter below (typically 11).
 //#define SERVO0_PIN 27
-//
-// NOTE: On 1284p boards due to space limitations and the large amount of code the BLTouch requires for the LCD Menus
-// the Bootscreen and some Control > Motion menus will not be displayed due to space restrictions
+
+// The BL Touch is NOT supported on the Wanhao i3 Plus, use the ADVi3++ Firmware instead if you want to use a BL Touch.
 
 // MANUAL MESH LEVELING ----------------------------
 // If you want to use manual mesh leveling you can enable the below option. This is for generating a MANUAL mesh WITHOUT a probe. 
 // Mesh Bed Leveling Documentation: http://marlinfw.org/docs/gcode/G029-mbl.html If used with a 1284P board the bootscreen will be disabled to save space.
+// NOTE: This is not supported on the Wanhao i3 Plus due to the LCD limitations.
 // NOTE: If you want to automate the leveling process our EZABL kits do this for you. Check them out here: http://EZABL.TH3DStudio.com
 //#define MANUAL_MESH_LEVELING
 
@@ -837,14 +1025,16 @@
 // Continue after Power-Loss feature will store the current state to the SD Card at the start of each layer
 // during SD printing. If this is found at bootup it will ask you if you want to resume the print.
 //
-// NOTE: This feature causes excessive wear on your SD card. This will disable junction jerk,  SCurve Acceleration, and Linear Advance due to RAM limitations.
+// NOTE: This feature causes excessive wear on your SD card. This will also disable Junction Jerk, SCurve Acceleration, Linear Advance, and Reduce the Serial Buffer due to RAM limitations.
+// Power Loss Recovery is NOT supported on the Wanhao i3 Plus at this time.
 //#define POWER_LOSS_RECOVERY
 
 // MOTION SETTINGS ---------------------------------
-// If you do not like the new Junction Deviation (Jerk) and/or S-Curve Acceleration then you can uncomment the below lines to disable each feature.
-// Due to Anet board restrictions this is always disabled on those machines.
-//#define JUNCTION_DEVIATION_DISABLE
-//#define S_CURVE_ACCELERATION_DISABLE
+// There are 2 new acceleration/jerk controls available in this firmware that can result is better print quality and
+// smoother movement. To try each out just enable them below.
+// Junction Deviation is NOT supported on the Wanhao i3 Plus at this time.
+//#define JUNCTION_DEVIATION_ON
+//#define S_CURVE_ACCELERATION_ON
 
 //================================================================================================
 // Language - This is provided for convenience and is unsupported with included product support.
@@ -863,9 +1053,7 @@
 
 #define LCD_LANGUAGE en
 
-#include "Configuration_beta.h"
+#define UNIFIED_VERSION "TH3D U1.R2.B5"
 #include "Configuration_backend.h"
-
-#define UNIFIED_VERSION "TH3D U1.R2.11a"
 
 #endif // CONFIGURATION_H

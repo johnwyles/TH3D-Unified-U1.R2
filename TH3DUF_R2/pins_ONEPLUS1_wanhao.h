@@ -50,7 +50,7 @@ Oops!  Make sure you have 'Arduino Mega' selected from the 'Tools -> Boards' men
 #define HEATER_BED_PIN    44    // BED
 #define TEMP_0_PIN        13   // ANALOG NUMBERING
 #define TEMP_BED_PIN      14   // ANALOG NUMBERING
-#define FAN_PIN           12 // IO pin. Buffer needed
+#define FAN_PIN           -1 // IO pin. Buffer needed
 
 #define BEEPER_PIN 37
 // Pins for DOGM SPI LCD Support

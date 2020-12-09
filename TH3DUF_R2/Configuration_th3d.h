@@ -4,6 +4,7 @@
 
 // TH3D In House Machines/Custom Machines
 // These are here for TH3D use ONLY. NOT SUPPORTED.
+// Do not use these unless you have your own machine that we built that is listed below.
 // We use Unified as well so we merged our machines into the code so it's easier for us to update. :)
 
 // TH3D Machines
@@ -21,6 +22,7 @@
 //#define TIM_ENDER3
 //#define TIM_ENDER4
 //#define TIM_AM8
+//#define TIM_WOODI3
 
 // Custom Machines
 //#define MATTF_X5S
@@ -30,6 +32,18 @@
 
 // DH-THW Machines
 //#define DOUG_I3MINI
+
+#if ENABLED(TIM_WOODI3)
+  #define NO_COLD_PREVENT
+  #define CTC_I3_PROB
+  #define CTC_I3_T8_LEAD
+  #define EZOUTV2_ENABLE
+  #define CUSTOM_PROBE
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -35
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -36
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
+#endif
 
 #if ENABLED(DANE_I3CUSTOM)
   #define TH3DINHOUSEMACHINE
@@ -50,8 +64,8 @@
   
   //#define LINEAR_ADVANCE
   //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
     
   #define CUSTOM_MACHINE_NAME "Franken i3"
 
@@ -126,7 +140,9 @@
   #define ENDER4
   #define ENDER4_FIL
   #define ENDER4_OEM_LEFT
-  #define TITAN_EXTRUDER
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
   #define NO_COLD_PREVENT
   #define PIDBED_ENABLE
 #endif
@@ -140,12 +156,11 @@
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define TITAN_EXTRUDER
-  #define TITAN_EXTRUDER_STEPS 463  
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
   #define USER_PRINTER_NAME "Nicks Ender3" 
   #define PIDBED_ENABLE
 #endif
@@ -161,12 +176,11 @@
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
   #define PIDBED_ENABLE
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define TITAN_EXTRUDER
-  #define TITAN_EXTRUDER_STEPS 463
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
   #define USER_PRINTER_NAME "HakEnder3" 
   #define HOME_ADJUST
   #define X_HOME_LOCATION 0
@@ -189,10 +203,8 @@
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
   
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
     
   #define CUSTOM_MACHINE_NAME "Aaaaay30"
 
@@ -269,21 +281,20 @@
 #endif //end of steve A30
 
 #if ENABLED(TIM_I3MINI)
-  #define WANHAO_I3MINI
+  #define WANHAO_I3MINI_V2
   #define WANHAO_I3MINI_OEM_EZABLMINI
   #define EZABL_POINTS 3
   #define EZABL_PROBE_EDGE 5
   #define EZABL_FASTPROBE
-  #define TITAN_EXTRUDER
-  #define TITAN_EXTRUDER_STEPS 463
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
   #define I3MINI_FANCONTROL
   #define USER_PRINTER_NAME "HangryPrinter" 
   #define NO_COLD_PREVENT
   #define BABYSTEP_OFFSET
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
 #endif
 
 #if ENABLED(DOUG_I3MINI)
@@ -296,10 +307,8 @@
   #define USER_PRINTER_NAME "PartPrinter" 
   #define NO_COLD_PREVENT
   #define BABYSTEP_OFFSET
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
   #define PIDBED_ENABLE
 #endif
 
@@ -326,11 +335,9 @@
   #define EZABL_PROBE_EDGE 10
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
     
   #define CUSTOM_MACHINE_NAME "HakAM8Dual"
 
@@ -435,10 +442,8 @@
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
   
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
     
   #define CUSTOM_MACHINE_NAME "HakX5S"
   #define IS_MKS_BOARD_ATX
@@ -544,11 +549,11 @@
   #define BABYSTEP_OFFSET
   #define V6_HOTEND
   #define PIDBED_ENABLE
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
-  #define TITAN_EXTRUDER
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
   #define USER_PRINTER_NAME "HakU10" 
 #endif
 
@@ -562,11 +567,11 @@
   #define BABYSTEP_OFFSET
   #define EZOUTV2_ENABLE
   #define PIDBED_ENABLE
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
-  #define TITAN_EXTRUDER
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
   #define USER_PRINTER_NAME "Irma"   
 #endif
 
@@ -578,11 +583,10 @@
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
+  #define EZOUTV2_ENABLE
   #define PIDBED_ENABLE
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
   #define USER_PRINTER_NAME "HakWi3"   
 #endif
 
@@ -595,11 +599,11 @@
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
   #define PIDBED_ENABLE
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
-  #define TITAN_EXTRUDER
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
   #define USER_PRINTER_NAME "HakEZ300"   
 #endif
 
@@ -615,8 +619,8 @@
   #define PIDBED_ENABLE
   //#define LINEAR_ADVANCE
   //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
   #define USER_PRINTER_NAME "HakD6"   
 #endif
 
@@ -631,11 +635,11 @@
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
   #define PIDBED_ENABLE
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
-  #define TITAN_EXTRUDER
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
+  #define CUSTOM_ESTEPS
+  #define REVERSE_E_MOTOR_DIRECTION
+  #define CUSTOM_ESTEPS_VALUE 463
   #define USER_PRINTER_NAME "HakCR10Mini"   
 #endif
 
@@ -657,8 +661,8 @@
   
   //#define LINEAR_ADVANCE
   //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
     
   #define CUSTOM_MACHINE_NAME "HakE10"
   #define IS_MKS_BOARD_ATX
@@ -760,8 +764,8 @@
   #define PIDBED_ENABLE
   //#define LINEAR_ADVANCE
   //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
   #define USER_PRINTER_NAME "HakEnder2"   
 #endif
 
@@ -791,8 +795,8 @@
   
   //#define LINEAR_ADVANCE
   //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
     
   #define CUSTOM_MACHINE_NAME "HakSMARTT"
 
@@ -880,9 +884,9 @@
   #define NO_COLD_PREVENT
 
   #define CUSTOM_DRIVERS
-  #define X_DRIVER_TYPE  DRV8825
-  #define Y_DRIVER_TYPE  DRV8825
-  #define Z_DRIVER_TYPE  DRV8825
+  #define X_DRIVER_TYPE  TMC2208_STANDALONE
+  #define Y_DRIVER_TYPE  TMC2208_STANDALONE
+  #define Z_DRIVER_TYPE  TMC2208_STANDALONE
   #define E0_DRIVER_TYPE A4988
   
   #ifndef MOTHERBOARD
@@ -895,10 +899,8 @@
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
   
-  //#define LINEAR_ADVANCE
-  //#define LINEAR_ADVANCE_K 0
-  #define NEW_JERK_CONTROL
-  #define NEW_ACCELERATION_CONTROL
+  #define JUNCTION_DEVIATION_ON
+  #define S_CURVE_ACCELERATION_ON
     
   #define CUSTOM_MACHINE_NAME "HakCR10"
   #define IS_MKS_BOARD_ATX
@@ -939,24 +941,29 @@
   #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
 
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 463 }
-  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 15, 25 }
-  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 5000 }
-  
-  #define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 463 } //TMC2208 XYZ
+  //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 463 } //DRV8825 XYZ
+  #define DEFAULT_MAX_FEEDRATE          { 200, 200, 15, 30 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 1000 }
 
-  #define DEFAULT_XJERK                 10.0
-  #define DEFAULT_YJERK                 10.0
+  #define DEFAULT_ACCELERATION          500    
+  #define DEFAULT_RETRACT_ACCELERATION  1000   
+  #define DEFAULT_TRAVEL_ACCELERATION   500    
+  
+  #define DEFAULT_XJERK                  8.0
+  #define DEFAULT_YJERK                  8.0
   #define DEFAULT_ZJERK                  0.4
   #define DEFAULT_EJERK                  5.0
   
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR false
+  //#define INVERT_X_DIR false //DRV8825
+  //#define INVERT_Y_DIR false //DRV8825
+  //#define INVERT_Z_DIR true  //DRV8825
   
-  #define INVERT_E0_DIR false
+  #define INVERT_X_DIR true //TMC2208
+  #define INVERT_Y_DIR true //TMC2208
+  #define INVERT_Z_DIR false  //TMC2208
+  
+  #define INVERT_E0_DIR true
   #define INVERT_E1_DIR false
   #define INVERT_E2_DIR false
   #define INVERT_E3_DIR false
@@ -974,7 +981,7 @@
   #define Z_MIN_POS 0
   #define X_MAX_POS X_BED_SIZE
   #define Y_MAX_POS Y_BED_SIZE
-  #define Z_MAX_POS 400
+  #define Z_MAX_POS 390
   
   #define SDSUPPORT
   #define ENCODER_PULSES_PER_STEP 4
